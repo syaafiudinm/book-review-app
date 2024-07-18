@@ -6,14 +6,14 @@
         <div class="col-md-3">
             <div class="card border-0 shadow-lg">
                 <div class="card-header  text-white">
-                    Welcome, John Doe                        
+                    Welcome, {{Auth::user()->name}}                       
                 </div>
                 <div class="card-body">
                     <div class="text-center mb-3">
                         <img src="images/profile-img-1.jpg" class="img-fluid rounded-circle" alt="Luna John">                            
                     </div>
                     <div class="h5 text-center">
-                        <strong>John Doe</strong>
+                        <strong>{{Auth::user()->name}}</strong>
                         <p class="h6 mt-2 text-muted">5 Reviews</p>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                             <a href="change-password.html">Change Password</a>
                         </li> 
                         <li class="nav-item">
-                            <a href="login.html">Logout</a>
+                            <a href="{{route('account.logout')}}">Logout</a>
                         </li>                           
                     </ul>
                 </div>
