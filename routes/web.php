@@ -20,6 +20,7 @@ Route::group(['prefix' => 'account'], function(){
 });
 
 Route::group(['middleware' => 'auth'], function(){
-    Route::get('account/profile',[AccountController::class,'profile'])->name('account.profile');
-    Route::get('account/logout',[AccountController::class,'logout'])->name('account.logout');
+    Route::get('profile',[AccountController::class,'profile'])->name('account.profile');
+    Route::get('logout',[AccountController::class,'logout'])->name('account.logout');
+    Route::post('update-profile',[AccountController::class,'updateProfile'])->name('account.updateProfile');
 });
