@@ -10,7 +10,9 @@
                 </div>
                 <div class="card-body">
                     <div class="text-center mb-3">
-                        <img src="images/profile-img-1.jpg" class="img-fluid rounded-circle" alt="Luna John">                            
+                        @if (Auth::user()->image != "")
+                            <img src="{{asset('uploads/profile/'.Auth::user()->image)}}" class="img-fluid rounded" alt="" width="150">  
+                        @endif                       
                     </div>
                     <div class="h5 text-center">
                         <strong>{{Auth::user()->name}}</strong>
@@ -53,7 +55,7 @@
                     Profile
                 </div>
                 <div class="card-body">
-                    <form action="{{route('account.updateProfile')}}" method="POST">
+                    <form action="{{route('account.updateProfile')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
@@ -71,8 +73,13 @@
                         </div>
                         <div class="mb-3">
                             <label for="name" class="form-label">Image</label>
-                            <input type="file" name="image" id="image" class="form-control">
-                            {{-- <img src="images/profile-img-1.jpg" class="img-fluid mt-4" alt="Luna John" > --}}
+                            <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror">
+                            @error('image')
+                            <p class="invalid-feedback">{{$message}}</p>
+                            @enderror
+                            @if (Auth::user()->image != "")
+                                <img src="{{asset('uploads/profile/'.Auth::user()->image)}}" class="img-fluid mt-4" alt="" width="100">
+                            @endif
                         </div>   
                         <button class="btn btn-primary mt-2">Update</button>                     
                     </form>
