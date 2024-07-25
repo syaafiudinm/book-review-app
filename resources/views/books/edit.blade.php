@@ -33,21 +33,21 @@
             @include('layouts.message')
             <div class="card border-0 shadow">
                 <div class="card-header  text-white">
-                    Add Book
+                    Edit Book
                 </div>
                 <div class="card-body">
-                <form action="{{route('books.store')}}" method="POST" enctype="multipart/form-data">
+                <form action="{{route('books.update',$book->id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
-                        <input type="text" class="form-control @error('title') is-invalid @enderror" placeholder="Title" name="title" id="title" value="{{old('title')}}"/>
+                        <input type="text" class="form-control @error('title') is-invalid @enderror" placeholder="Title" name="title" id="title" value="{{old('title',$book->title)}}"/>
                         @error('title')
                             <p class="invalid-feedback">{{$message}}</p>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label for="author" class="form-label">Author</label>
-                        <input type="text" class="form-control @error('author') is-invalid @enderror" placeholder="Author"  name="author" id="author" value="{{old('author')}}"/>
+                        <input type="text" class="form-control @error('author') is-invalid @enderror" placeholder="Author"  name="author" id="author" value="{{old('author',$book->author)}}"/>
                         @error('author')
                             <p class="invalid-feedback">{{$message}}</p>
                         @enderror
@@ -55,7 +55,7 @@
 
                     <div class="mb-3">
                         <label for="author" class="form-label">Description</label>
-                        <textarea name="description" id="description" class="form-control" placeholder="Description" cols="30" rows="5">{{old('description')}}</textarea>
+                        <textarea name="description" id="description" class="form-control" placeholder="Description" cols="30" rows="5">{{old('description',$book->description)}}</textarea>
                     </div>
 
                     <div class="mb-3">
@@ -64,19 +64,23 @@
                         @error('image')
                             <p class="invalid-feedback">{{$message}}</p>
                         @enderror
+
+                        @if (!empty($book->image))
+                            <img class="my-3" src="{{asset('uploads/books/'.$book->image)}}" alt="book" width="170">
+                        @endif
                     </div>
 
                     <div class="mb-3">
                         <label for="author" class="form-label">Status</label>
                         <select name="status" id="status" class="form-control @error('status') is-error @enderror">
-                            <option value="1">Active</option>
-                            <option value="0">Block</option>
+                            <option value="1" {{ ($book->status == 1) ? 'selected' : '' }}>Active</option>
+                            <option value="0" {{ ($book->status == 1) ? 'selected' : '' }}>Block</option>
                         </select>
                         @error('status')
                             <p class="invalid-feedback">{{$messaage}}</p>
                         @enderror
                     </div>
-                    <button class="btn btn-primary mt-2">Create</button>   
+                    <button class="btn btn-primary mt-2">Update</button>   
                 </form>                  
                 </div>
             </div>                 
