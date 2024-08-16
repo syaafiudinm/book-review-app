@@ -6,6 +6,7 @@ use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use PhpParser\Node\Expr\Cast\Bool_;
 
 class BookController extends Controller
 {
@@ -119,5 +120,19 @@ class BookController extends Controller
 
         return redirect()->route('books.index')->with('success', 'Book updated successfully');
 
+    }
+
+    public function destroy(int $id){
+        $book = Book::findOrFail($id);
+
+        if ($book->image) {
+            $imagePath = public_path('uploads/books/'.$book->image);
+            if(file_exists($imagePath)){
+                unlink($imagePath);
+            }
+        }
+        $book->delete();
+
+        return redirect()->route('books.index')->with('success', 'Book deleted successfully');
     }
 }

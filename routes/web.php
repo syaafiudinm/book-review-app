@@ -2,12 +2,12 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\HomeController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', [HomeController::class,'index'])->name('home');
 
 
 
@@ -29,4 +29,5 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('books',[BookController::class,'store'])->name('books.store');
     Route::get('books/edit/{id}',[BookController::class,'edit'])->name('books.edit');
     Route::post('books/edit/{id}',[BookController::class,'update'])->name('books.update');
+    Route::delete('books/delete/{id}',[BookController::class,'destroy'])->name('books.destroy');
 });
