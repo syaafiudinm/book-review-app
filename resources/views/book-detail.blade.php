@@ -56,9 +56,11 @@
                           @foreach ($relatedBooks as $rBook) 
                             <div class="col-md-4 col-lg-4 mb-4">
                                 <div class="card border-0 shadow-lg">
+                                    <a href="{{route("book-detail",$book->id)}}">
                                     @if ($rBook->image != '')
                                     <img src="{{asset('uploads/books/'.$rBook->image)}}" alt="" class="card-img-top">
                                     @endif
+                                    </a>
                                     <div class="card-body">
                                         <h3 class="h4 heading">{{$rBook->title}}</h3>
                                         <p>By {{$rBook->author}}</p>
@@ -112,110 +114,51 @@
                                 </div>
                             </div>                        
 
-                            <div class="card border-0 shadow-lg my-4">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between">
-                                        <h5 class="mb-3">John Doe</h4>
-                                        <span class="text-muted">8 Apr, 2024</span>         
-                                    </div>
-                                   
-                                    <div class="mb-3">
-                                        <div class="star-rating d-inline-flex" title="">
-                                            <div class="star-rating d-inline-flex " title="">
-                                                <div class="back-stars ">
-                                                    <i class="fa fa-star " aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                
-                                                    <div class="front-stars" style="width: 70%">
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                    </div>
-                                                </div>
+                            @if ($book->reviews->isNotEmpty())
+                                @foreach ($book->reviews as $review) 
+                                    <div class="card border-0 shadow-lg my-4">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <h5 class="mb-3">{{$review->user->name}}</h4>
+                                                <span class="text-muted">{{\Carbon\Carbon::parse($review->created_at)->format('d M, Y')}}</span>         
                                             </div>
-                                        </div>
-                                                                           
-                                    </div>
-                                    <div class="content">
-                                        <p>This book does a great job of laying down the framework of how habits are formed, and shares insightful strategies for building good habits and breaking bad ones. Even though I was already familiar with research behind habit formation, reading through this book helped me approach habits I’m trying to adopt or break in my own life from different angles.</p>
-                                    </div>
-                                </div>
-                            </div>  
-                            
-                            <div class="card border-0 shadow-lg my-4">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between">
-                                        <h5 class="mb-3">John Doe</h4>
-                                        <span class="text-muted">8 Apr, 2024</span>         
-                                    </div>
-                                   
-                                    <div class="mb-3">
-                                        <div class="star-rating d-inline-flex" title="">
-                                            <div class="star-rating d-inline-flex " title="">
-                                                <div class="back-stars ">
-                                                    <i class="fa fa-star " aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                
-                                                    <div class="front-stars" style="width: 70%">
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                                                           
-                                    </div>
-                                    <div class="content">
-                                        <p>This book does a great job of laying down the framework of how habits are formed, and shares insightful strategies for building good habits and breaking bad ones. Even though I was already familiar with research behind habit formation, reading through this book helped me approach habits I’m trying to adopt or break in my own life from different angles.</p>
-                                    </div>
-                                </div>
-                            </div>  
+                                        
+                                            @php
+                                             $ratingper = ($review->rating/5)*100;   
+                                            @endphp
 
-                            <div class="card border-0 shadow-lg my-4">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between">
-                                        <h5 class="mb-3">John Doe</h4>
-                                        <span class="text-muted">8 Apr, 2024</span>         
-                                    </div>
-                                   
-                                    <div class="mb-3">
-                                        <div class="star-rating d-inline-flex" title="">
-                                            <div class="star-rating d-inline-flex " title="">
-                                                <div class="back-stars ">
-                                                    <i class="fa fa-star " aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                
-                                                    <div class="front-stars" style="width: 70%">
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                            <div class="mb-3">
+                                                <div class="star-rating d-inline-flex" title="">
+                                                    <div class="star-rating d-inline-flex " title="">
+                                                        <div class="back-stars ">
+                                                            <i class="fa fa-star " aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                        
+                                                            <div class="front-stars" style="width: {{$ratingper}}%">
+                                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                                                
+                                            </div>
+                                            <div class="content">
+                                                <p>{{$review->review}}</p>
                                             </div>
                                         </div>
-                                                                           
-                                    </div>
-                                    <div class="content">
-                                        <p>This book does a great job of laying down the framework of how habits are formed, and shares insightful strategies for building good habits and breaking bad ones. Even though I was already familiar with research behind habit formation, reading through this book helped me approach habits I’m trying to adopt or break in my own life from different angles.</p>
-                                    </div>
-                                </div>
-                            </div>  
+                                    </div>  
+                                @endforeach
+                            @else
+                                <div>reviews not found</div>
+                            @endif
+                            
                         </div>
                     </div>
                 </div>

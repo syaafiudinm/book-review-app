@@ -25,7 +25,9 @@ class HomeController extends Controller
     }
 
     public function detail($id){
-        $book = Book::findOrFail($id);
+        $book = Book::with(['reviews.user','review' => function($query){
+            $query->where('status', 1);
+        }])->findOrFail($id);
 
         $relatedBooks = Book::where('status',1)->take(3)->where('id','!=',$id)->inRandomOrder()->get();
 
@@ -49,6 +51,15 @@ class HomeController extends Controller
             return response()->json([
                 'status' => false,
                 'errors' => $validator->errors()
+            ]);
+        }
+
+        $countReview = Review::where('user_id',Auth::user()->id)->where('book_id',$request->book_id)->count();
+
+        if ($countReview > 0) {
+            session()->flash('error', 'review submitted already');
+            return response()->json([
+                'status' => true,
             ]);
         }
 
