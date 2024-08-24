@@ -56,7 +56,7 @@
                           @foreach ($relatedBooks as $rBook) 
                             <div class="col-md-4 col-lg-4 mb-4">
                                 <div class="card border-0 shadow-lg">
-                                    <a href="{{route("book-detail",$book->id)}}">
+                                    <a href="{{route("book-detail",$rBook->id)}}">
                                     @if ($rBook->image != '')
                                     <img src="{{asset('uploads/books/'.$rBook->image)}}" alt="" class="card-img-top">
                                     @endif

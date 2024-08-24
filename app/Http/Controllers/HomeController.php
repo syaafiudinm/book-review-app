@@ -25,7 +25,7 @@ class HomeController extends Controller
     }
 
     public function detail($id){
-        $book = Book::with(['reviews.user','review' => function($query){
+        $book = Book::with(['reviews.user','reviews' => function($query){
             $query->where('status', 1);
         }])->findOrFail($id);
 
