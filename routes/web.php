@@ -39,4 +39,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('reviews/{id}',[ReviewController::class,'updateReview'])->name('account.reviews.update');
     Route::post('delete-review',[ReviewController::class,'deleteReview'])->name('account.reviews.delete');
     Route::get('my-reviews',[AccountController::class,'myReviews'])->name('account.reviews.myReviews');
+    Route::get('my-reviews/{id}',[AccountController::class,'editReview'])->name('account.myReviews.editReview');
+    Route::post('my-reviews/{id}',[AccountController::class,'updateReview'])->name('account.myReviews.updateReview');
+
+    
 });

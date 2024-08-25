@@ -17,8 +17,8 @@
                         @if (Auth::check())
                         <a href="{{route('account.profile')}}" class="text-white">My Account</a>
                         @else
-                        <a href="{{route('account.login')}}" class="text-white">Login</a>
-                        <a href="{{route('account.register')}}" class="text-white ps-2">Register</a>  
+                        <a href="{{route('account.login')}}" class="text-white">Login |</a>
+                        <a href="{{route('account.register')}}" class="text-white ps-2">| Register</a>  
                         @endif
                     </div>
                 </div>
