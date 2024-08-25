@@ -35,4 +35,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::delete('books/delete/{id}',[BookController::class,'destroy'])->name('books.destroy');
 
     Route::get('reviews',[ReviewController::class,'index'])->name('account.reviews');
+    Route::get('reviews/{id}',[ReviewController::class,'edit'])->name('account.reviews.edit');
+    Route::post('reviews/{id}',[ReviewController::class,'updateReview'])->name('account.reviews.update');
+    Route::post('delete-review',[ReviewController::class,'deleteReview'])->name('account.reviews.delete');
+    Route::get('my-reviews',[AccountController::class,'myReviews'])->name('account.reviews.myReviews');
 });

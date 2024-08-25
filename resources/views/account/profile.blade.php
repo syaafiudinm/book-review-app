@@ -23,8 +23,8 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="name" class="form-label @error('email') is-invalid @enderror">Email</label>
-                            <input type="text" value="{{old('email',$user->email)}}" class="form-control" placeholder="Email"  name="email" id="email"/>
+                            <label for="name" class="form-label">Email</label>
+                            <input type="text" value="{{old('email',$user->email)}}" class="form-control @error('email') is-invalid @enderror" placeholder="Email"  name="email" id="email"/>
                             @error('email')
                                 <p class="invalid-feedback">{{$message}}</p>
                             @enderror
