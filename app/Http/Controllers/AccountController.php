@@ -163,4 +163,26 @@ class AccountController extends Controller
         return redirect()->route('account.reviews.myReviews');
 
     }
+
+    public function deleteReview(Request $request){
+
+        $id = $request->id;
+        
+        $review = Review::find($id);
+
+        if ($review == null){
+            return response()->json([
+                'status' => false
+            ]);
+        }
+
+        $review->delete();
+
+        session()->flash('success', 'review deleted successfully');
+
+        return response()->json([
+            'status' => true,
+            'message' => 'review deleted successfully'
+        ]);
+    }
 }
