@@ -38,7 +38,7 @@
                 <a href="change-password.html">Change Password</a>
             </li> 
             <li class="nav-item">
-                <a href="{{route('account.logout')}}">Logout</a>
+                <a href="{{route('account.logout')}}" onclick="return confirm('are you sure want to logout?')">Logout</a>
             </li>                           
         </ul>
     </div>
