@@ -105,7 +105,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <span class="theme-font text-muted">(0)</span>
+                                            <span class="theme-font text-muted">({{$rBook->reviews_count}})</span>
                                         </div>
                                     </div>
                                 </div>
