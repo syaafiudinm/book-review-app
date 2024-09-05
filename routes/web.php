@@ -20,13 +20,16 @@ Route::group(['prefix' => 'account'], function(){
         Route::post('register',[AccountController::class,'processRegister'])->name('account.processRegister');
         Route::get('login',[AccountController::class,'login'])->name('account.login');
         Route::post('login',[AccountController::class,'authenticate'])->name('account.authenticate');
+        
     });
 });
 
 Route::group(['middleware' => 'auth'], function(){
-    Route::get('profile',[AccountController::class,'profile'])->name('account.profile');
-    Route::get('logout',[AccountController::class,'logout'])->name('account.logout');
-    Route::post('update-profile',[AccountController::class,'updateProfile'])->name('account.updateProfile');
+        Route::get('profile',[AccountController::class,'profile'])->name('account.profile');
+        Route::get('logout',[AccountController::class,'logout'])->name('account.logout');
+        Route::post('update-profile',[AccountController::class,'updateProfile'])->name('account.updateProfile');
+        Route::get('change-password',[AccountController::class, 'changePassword'])->name('account.change-password');
+        Route::post('/change-password', [AccountController::class, 'resetPassword'])->name('account.reset-password');
 
     Route::group(['middleware' => 'check-admin'], function(){
 
@@ -41,8 +44,10 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('reviews/{id}',[ReviewController::class,'edit'])->name('account.reviews.edit');
         Route::post('reviews/{id}',[ReviewController::class,'updateReview'])->name('account.reviews.update');
         Route::post('delete-review',[ReviewController::class,'deleteReview'])->name('account.reviews.delete');
-        
+
     });
+
+    // Routing My Reviews //
 
     Route::get('my-reviews',[AccountController::class,'myReviews'])->name('account.reviews.myReviews');
     Route::get('my-reviews/{id}',[AccountController::class,'editReview'])->name('account.myReviews.editReview');

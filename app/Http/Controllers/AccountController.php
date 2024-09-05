@@ -185,4 +185,35 @@ class AccountController extends Controller
             'message' => 'review deleted successfully'
         ]);
     }
+
+    public function changePassword(){
+        return view('account.change-password');
+    }
+
+    public function resetPassword(Request $request){
+
+        $validator = Validator::make($request->all(),[
+            'current_password' => 'required|min:5',
+            'new_password' => 'required|confirmed|min:5',
+            'new_password_confirmation' => 'required'
+        ]);
+
+        if($validator->fails()){
+            return redirect()->route('account.change-password')->withInput()->withErrors($validator);
+        }
+
+        if(!Hash::check($request->current_password, Auth::user()->password)){
+            return redirect()->route('account.change-password')->withErrors(['current_password' => 'your current password, do not match']);
+        }
+        
+
+        $user = User::find(Auth::user()->id);
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        Auth::logout();
+
+        return redirect()->route('account.login')->with('status', 'Password changed successfully. Please log in again.');
+    
+    }
 }
